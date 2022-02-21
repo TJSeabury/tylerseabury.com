@@ -20,14 +20,20 @@ model User {
 }
 
 model Post {
-  id          String    @id @default(cuid())
-  title       String    @default("")
-  status      String?   @default("draft")
-  content     String    @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
-  publishDate DateTime?
-  author      User?     @relation("Post_author", fields: [authorId], references: [id])
-  authorId    String?   @map("author")
-  tags        Tag[]     @relation("Post_tags")
+  id                      String    @id @default(cuid())
+  featuredImage_filesize  Int?
+  featuredImage_extension String?
+  featuredImage_width     Int?
+  featuredImage_height    Int?
+  featuredImage_mode      String?
+  featuredImage_id        String?
+  title                   String    @default("")
+  status                  String?   @default("draft")
+  content                 String    @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
+  publishDate             DateTime?
+  author                  User?     @relation("Post_author", fields: [authorId], references: [id])
+  authorId                String?   @map("author")
+  tags                    Tag[]     @relation("Post_tags")
 
   @@index([authorId])
 }

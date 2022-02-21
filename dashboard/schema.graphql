@@ -123,6 +123,7 @@ input PostRelateToManyForCreateInput {
 
 type Post {
   id: ID!
+  featuredImage: ImageFieldOutput
   title: String
   status: String
   content: Post_content_Document
@@ -137,6 +138,23 @@ type Post {
   tagsCount(where: TagWhereInput! = {}): Int
 }
 
+interface ImageFieldOutput {
+  id: ID!
+  filesize: Int!
+  width: Int!
+  height: Int!
+  extension: ImageExtension!
+  ref: String!
+  url: String!
+}
+
+enum ImageExtension {
+  jpg
+  png
+  webp
+  gif
+}
+
 type Post_content_Document {
   document(hydrateRelationships: Boolean! = false): JSON!
 }
@@ -146,6 +164,26 @@ scalar DateTime
 
 input PostWhereUniqueInput {
   id: ID
+}
+
+type LocalImageFieldOutput implements ImageFieldOutput {
+  id: ID!
+  filesize: Int!
+  width: Int!
+  height: Int!
+  extension: ImageExtension!
+  ref: String!
+  url: String!
+}
+
+type CloudImageFieldOutput implements ImageFieldOutput {
+  id: ID!
+  filesize: Int!
+  width: Int!
+  height: Int!
+  extension: ImageExtension!
+  ref: String!
+  url: String!
 }
 
 input PostWhereInput {
@@ -213,6 +251,7 @@ input PostOrderByInput {
 }
 
 input PostUpdateInput {
+  featuredImage: ImageFieldInput
   title: String
   status: String
   content: JSON
@@ -220,6 +259,16 @@ input PostUpdateInput {
   author: UserRelateToOneForUpdateInput
   tags: TagRelateToManyForUpdateInput
 }
+
+input ImageFieldInput {
+  upload: Upload
+  ref: String
+}
+
+"""
+The `Upload` scalar type represents a file upload.
+"""
+scalar Upload
 
 input UserRelateToOneForUpdateInput {
   create: UserCreateInput
@@ -240,6 +289,7 @@ input PostUpdateArgs {
 }
 
 input PostCreateInput {
+  featuredImage: ImageFieldInput
   title: String
   status: String
   content: JSON
