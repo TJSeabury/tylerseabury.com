@@ -8,7 +8,7 @@ function App () {
 
     useEffect( () => {
         async function getContent () {
-            await fetch( 'http://karak_node_g420.tylerseabury.com:3000/api/graphql', {
+            await fetch( 'http://localhost:9000/api/graphql', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify( {
