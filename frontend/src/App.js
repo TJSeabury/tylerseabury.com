@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import { useEffect, useState } from 'react';
 import { uniqueId } from 'lodash';
+import Code from './Code';
 
 function App () {
     const [content, setContent] = useState( null );
@@ -34,13 +35,14 @@ function App () {
     }
 
     const renderContentNode = node => {
+        const text = node?.children[0]?.text ?? '';
         let content = null;
         switch ( node.type ) {
             case 'paragraph':
                 content = <p
                     key={uniqueId( 'paragraph-' )}
                 >
-                    {node.children[0].text}
+                    {text}
                 </p>;
                 break;
             case 'heading':
@@ -50,14 +52,14 @@ function App () {
                         content = <h2
                             key={uniqueId( 'heading-' )}
                         >
-                            {node.children[0].text}
+                            {text}
                         </h2>;
                         break;
                     case 3:
                         content = <h3
                             key={uniqueId( 'heading-' )}
                         >
-                            {node.children[0].text}
+                            {text}
                         </h3>;
                         break;
                     case 4:
@@ -66,7 +68,7 @@ function App () {
                         content = <h4
                             key={uniqueId( 'heading-' )}
                         >
-                            {node.children[0].text}
+                            {text}
                         </h4>;
                         break;
                     default:
@@ -74,11 +76,7 @@ function App () {
                 }
                 break;
             case 'code':
-                content = <pre
-                    key={uniqueId( 'code-' )}
-                ><code>
-                        {node.children[0].text}
-                    </code></pre>;
+                content = <Code code={text} language="javascript" />;
                 break;
             default:
                 break;
