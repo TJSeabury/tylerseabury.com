@@ -1,10 +1,9 @@
-import logo from './logo.svg';
-import './App.css';
 import { useEffect, useState } from 'react';
 import { uniqueId } from 'lodash';
-import Code from './Code';
+import Code from '../Code';
+import Layout from '../Layout';
 
-function App () {
+export default function App () {
     const [content, setContent] = useState( null );
 
     async function getContent () {
@@ -89,10 +88,10 @@ function App () {
         return () => { };
     }, [] );
 
-    const RenderContent = ( props ) => {
-        if ( !props.content ) return <div>Nothing to show yet.</div>;
-        const post = props.content?.posts[0];
-        return <article
+    if ( !content ) return <div>Nothing to show yet.</div>;
+    const post = content?.posts?.[0];
+    return <Layout>
+        <article
             id={post.id}
         >
             <header>
@@ -102,21 +101,6 @@ function App () {
                 <h1>{post.title}</h1>
             </header>
             {post.content.document.map( node => renderContentNode( node ) )}
-        </article>;
-    };
-
-    return (
-        <div className="App">
-            <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo" />
-            </header>
-            <main>
-                <RenderContent
-                    content={content}
-                />
-            </main>
-        </div>
-    );
+        </article>
+    </Layout>;
 }
-
-export default App;
