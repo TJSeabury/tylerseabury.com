@@ -1,6 +1,7 @@
 import Layout from "../views/Layout";
 import { uniqueId } from 'lodash';
 import { HomeCanvas } from "../components/HomeCanvas";
+import { RGBHeading } from "../components/RGBHeading";
 
 export default function Home ( props ) {
     return <Layout>
@@ -54,8 +55,8 @@ export default function Home ( props ) {
                 <div className="background-overlay" ></div>
             </div>
             <div className="section-content-group" >
-                <h2 className="rgb-text" >Technical Skills</h2>
-                <p>In my 5 years of experience working as a web developer and designer I've acquired a sizable skillset that gives me the ability to tackle a variety problems, from graphics manipulation to REST APIs and everything inbetween. </p>
+                <RGBHeading headingLevel={2} >Technical Skills</RGBHeading>
+                <p>In my {`${new Date().getFullYear() - 2015}`} years of experience working as a web developer and designer I've acquired a sizable skillset that gives me the ability to tackle a variety problems, from graphics manipulation to REST APIs and everything inbetween. </p>
                 <ul className="stylized-tags" >
                     <li>HTML</li>
                     <li>CSS</li>
@@ -104,7 +105,7 @@ export default function Home ( props ) {
                 <div className="background-overlay" ></div>
             </div>
             <div className="section-content-group" >
-                <h2 className="rgb-text" >Website Portfolio</h2>
+                <RGBHeading headingLevel={2} >Website Portfolio</RGBHeading>
                 <p>These are many projects that I have helped bring to life over the years. These are among the most prominent and I'm proud of the personal touch and care I was able to imbue them with.</p>
                 <ul className="portfolio-grid">
                     <li className="portfolio-item" >
