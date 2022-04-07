@@ -12,8 +12,8 @@ export default function World ( props ) {
 
     useEffect( () => {
         const engine = new ThriDi( containerRef.current );
-        const size = 200;
-        let ground = new Terrain( size, size, 100, 100, 420, new THREE.Color( 'hsl(80,40%,50%)' ) );
+        const size = 2000;
+        let ground = new Terrain( size, size, 250, 3, 420, new THREE.Color( 'hsl(80,40%,50%)' ) );
         const waterLevel = -1;
         let waterPlane = new THREE.PlaneGeometry( size, size, 1, 100 );
         waterPlane.rotateX( -Math.PI / 2 );
@@ -57,7 +57,7 @@ export default function World ( props ) {
             rock.position.set( x, y, z );
             engine.addObject( rock );
         }
-        for ( let t = 0; t < 4; t++ ) {
+        for ( let t = 0; t < 8; t++ ) {
             let x = Math.random() * size / 2 - size / 4;
             let z = Math.random() * size / 2 - size / 4;
             let y = ground.geometry.getHeightAtXZ( x, z );
@@ -69,15 +69,18 @@ export default function World ( props ) {
             boulder.position.set( x, y, z );
             engine.addObject( boulder );
         }
-        console.log( engine );
 
         return () => { };
     }, [] );
 
 
-    return <figure
-        id="world-scene"
-        ref={containerRef}
-    >
+    return <figure id="world-scene" >
+        <canvas
+            ref={containerRef}
+            style={{
+                width: '100%',
+                height: '100%'
+            }}
+        ></canvas>
     </figure>;
 }
