@@ -132,24 +132,3 @@ export function HSLAToRGBA ( h, s, l, a ) {
 
     return rgba( r, g, b, a );
 }
-
-export function gradient ( ctx, canvas, color, r ) {
-    ctx.save();
-    ctx.translate( canvas.width / 2, canvas.height / 2 );
-    ctx.rotate( ( 360 * r ) * Math.PI / 180 );
-    ctx.translate( 0, 0 );
-    let lingrad = ctx.createLinearGradient( 0, 0, canvas.height, canvas.height );
-    lingrad.addColorStop( 0, color );
-    lingrad.addColorStop( 1, 'rgb(42, 36, 34)' );
-    ctx.fillStyle = lingrad;
-    ctx.fillRect( -canvas.width, -canvas.width, canvas.width * 2, canvas.width * 2 );
-    ctx.restore();
-}
-
-export function mixedGradient ( color1, color2, ctx, canvas, r ) {
-    ctx.clearRect( 0, 0, canvas.width, canvas.height );
-    let c = { ...color2 };
-    c.alpha = r;
-    let mix = color1.blend( c );
-    gradient( ctx, canvas, mix, r );
-}
