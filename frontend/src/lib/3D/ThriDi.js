@@ -11,10 +11,10 @@ import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPa
 import theme from './../../theme.json';
 
 export class ThriDi {
-    constructor( container ) {
-        this.container = container;
-        this.width = container.getBoundingClientRect().width;
-        this.height = container.getBoundingClientRect().height;
+    constructor( canvas ) {
+        this.canvas = canvas;
+        this.width = canvas.getBoundingClientRect().width;
+        this.height = canvas.getBoundingClientRect().height;
         this.objects = [];
         this.running = false;
         this.initialize();
@@ -34,14 +34,16 @@ export class ThriDi {
         this.camera = new THREE.PerspectiveCamera( 40, this.width / this.height, near, far );
         this.scene.background = lightBlue; //null;
         this.scene.fog = new THREE.Fog( lightBlue, near, far );
-        this.renderer = new THREE.WebGLRenderer( { alpha: true } );
+        this.renderer = new THREE.WebGLRenderer( {
+            canvas: this.canvas,
+            alpha: true
+        } );
         this.renderer.shadowMap.enabled = true;
         this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
         this.renderer.autoClear = false;
         this.renderer.setPixelRatio( window.devicePixelRatio );
         this.renderer.setSize( this.width, this.height );
         this.renderer.antialias = true;
-        this.container.appendChild( this.renderer.domElement );
         this.controls = new OrbitControls( this.camera, this.renderer.domElement );
         this.controls.autoRotate = true;
         this.controls.autoRotateSpeed = 1;
@@ -73,8 +75,8 @@ export class ThriDi {
 
 
         function onWindowResize () {
-            this.width = this.container.getBoundingClientRect().width;
-            this.height = this.container.getBoundingClientRect().height;
+            this.width = this.canvas.getBoundingClientRect().width;
+            this.height = this.canvas.getBoundingClientRect().height;
 
             this.camera.aspect = this.width / this.height;
             this.camera.updateProjectionMatrix();
