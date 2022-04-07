@@ -8,7 +8,7 @@ export default function Layout ( props ) {
         </main>
         <footer>
             <div className="content-group" >
-                <p>© Copyright 2020 Tyler Seabury</p>
+                <p>© Copyright {`${new Date().getFullYear()}`} Tyler Seabury</p>
             </div>
         </footer>
     </div>;
