@@ -1,4 +1,4 @@
-import Layout from "../Layout";
+import Layout from "../views/Layout";
 
 export default function Expenses () {
     return <Layout>
